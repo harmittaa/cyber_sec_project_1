@@ -15,18 +15,16 @@
                 </tr>
             </thead>
             <tbody>
-<!--                <tr th:if="${comments.empty}">
-                    <td colspan="2">No comments here!</td>
-                </tr>-->
                 <tr th:each="comment : ${comments}">
-                    <!--                    <td><a th:href="@{/files/{id}(id=${file.id})}" th:text="${file.name}">file name</a></td>-->
                     <td th:utext="${comment.comment}">Comment</td>
                     <td th:utext="${comment.username}">username</td>
                     <td><form th:action="@{/comments/{id}(id=${comment.id})}" th:method="delete"><input type="submit" value="Delete"/></form></td>
                 </tr>
             </tbody>
         </table>
+        <li><a th:href="@{/delete}">DELETE ACCOUNT</a></li>
         <li><a th:href="@{/main}">Main page</a></li>
+        <li><a th:href="@{/logout}">Log out</a></li>
     </body>
 </html>
 

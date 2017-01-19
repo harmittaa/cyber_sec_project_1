@@ -5,13 +5,22 @@
     </head>
     <body>
 
-        <h1>Sign up to the event using this form</h1>
+        <h1>Welcome to the commenting web app</h1>
 
-        <form action="#" th:action="@{/form}" method="POST">
-            <p><label for="name">Name</label>: <input type="text" name="name" id="name"/></p>
-            <p><label for="address">Address</label>: <input type="text" name="address" id="address"/></p>
+        <h2>If you don't have an account register here:</h2>
+        <form action="#" th:action="@{/signup}" method="POST">
+            <p><label for="name">Username</label>: <input type="text" name="name" id="name"/></p>
+            <p><label for="password">Password</label>: <input type="password" name="password" id="password"/></p>
             <p><input type="submit" value="Submit" /></p>
         </form>
+
+        <h2>If you have an account login here:</h2>
+        <form action="#" th:action="@{/login}" method="POST">
+            <p><label for="name">Username</label>: <input type="text" name="name" id="name"/></p>
+            <p><label for="password">password</label>: <input type="password" name="password" id="password"/></p>
+            <p><input type="submit" value="Submit" /></p>
+        </form>
+
 
         <p></p>
     </body>

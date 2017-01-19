@@ -8,6 +8,7 @@
         <h1>You've logged in, now you can write a comment!</h1>
 
         <li><a th:href="@{/profile}">your profile!</a></li>
+         <li><a th:href="@{/logout}">Log out</a></li>
 
         <form action="#" th:action="@{/comment}" method="POST">
             <p><label for="comment">Comment here</label>: <input type="text" name="comment" id="comment"/></p>
