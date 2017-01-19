@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>User Comments</title>
+    </head>
+    <body>
+
+        <h1>Here are your comments!</h1>
+
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th><th>Comment</th>
+                </tr>
+            </thead>
+            <tbody>
+<!--                <tr th:if="${comments.empty}">
+                    <td colspan="2">No comments here!</td>
+                </tr>-->
+                <tr th:each="comment : ${comments}">
+                    <!--                    <td><a th:href="@{/files/{id}(id=${file.id})}" th:text="${file.name}">file name</a></td>-->
+                    <td th:utext="${comment.comment}">Comment</td>
+                    <td th:utext="${comment.username}">username</td>
+                    <td><form th:action="@{/comments/{id}(id=${comment.id})}" th:method="delete"><input type="submit" value="Delete"/></form></td>
+                </tr>
+            </tbody>
+        </table>
+        <li><a th:href="@{/main}">Main page</a></li>
+    </body>
+</html>
+
