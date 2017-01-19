@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.tomcat.TomcatContextCustomizer;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
+//import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
+//import org.springframework.boot.context.embedded.tomcat.TomcatContextCustomizer;
+//import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -186,11 +189,14 @@ public class SignupController {
         @Override
         public void customize(Context context) {
             // allow Javascript to access cookies
+           // System.out.println("SessionIdLength " + context.getManager().getSessionIdGenerator().getSessionIdLength());
             context.setUseHttpOnly(false);
-            System.out.println("SessionIdLength " + context.getManager().getSessionIdGenerator().getSessionIdLength());
-            // set the sessionLength
+            context.getManager();
             context.getManager().getSessionIdGenerator().setSessionIdLength(1);
-            System.out.println("SessionIdLength " + context.getManager().getSessionIdGenerator().getSessionIdLength());
+            //context.getManager().getSessionIdGenerator().getSessionIdLength();
+            // set the sessionLength
+         //   context.getManager().getSessionIdGenerator().setSessionIdLength(1);
+           // System.out.println("SessionIdLength " + context.getManager().getSessionIdGenerator().getSessionIdLength());
         }
     }
 }
