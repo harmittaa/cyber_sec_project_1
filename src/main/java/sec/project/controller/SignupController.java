@@ -22,13 +22,13 @@ import sec.project.repository.CommentRepository;
 
 @Controller
 public class SignupController {
-    
+
     @Autowired
     private SignupRepository signupRepository;
     @Autowired
     private CommentRepository commentRepository;
     private Signup newSignUp;
-    
+
     @RequestMapping("*")
     public String defaultMapping() {
         return "redirect:/form";
@@ -40,7 +40,7 @@ public class SignupController {
     @RequestMapping(value = "/profile/{username}", method = RequestMethod.GET)
     public String getUserProfile(@PathVariable String username, Model model) {
         if (checkLoginStatus()) {
-            
+
             List<Comment> userCommentList = new ArrayList<>();
             for (Comment c : commentRepository.findAll()) {
                 if (c.getUsername().equals(username)) {
@@ -108,7 +108,7 @@ public class SignupController {
                 }
             }
         }
-        
+
         return "main";
     }
 
@@ -121,11 +121,11 @@ public class SignupController {
         System.out.println("loading form");
         return "form";
     }
-    
+
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String submitForm(@RequestParam String name, @RequestParam String password) {
         for (Signup s : signupRepository.findAll()) {
-            if (s.getName().equals(name)) {   
+            if (s.getName().equals(name)) {
                 return "username_exists";
             }
         }
@@ -134,10 +134,10 @@ public class SignupController {
         System.out.println("Signup passed, going to main");
         return "signup_passed";
     }
-    
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestParam String name, @RequestParam String password) {
-        
+
         for (Signup s : signupRepository.findAll()) {
             if (s.getName().equals(name) && s.getPassword().equals(password)) {
                 System.out.println("login passed, going to main");
@@ -147,14 +147,14 @@ public class SignupController {
         System.out.println("User not found!");
         return "login_error";
     }
-    
+
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
     public String submitComment(@RequestParam String comment) {
         commentRepository.save(new Comment(comment, newSignUp.getName()));
         System.out.println("COmment passed, going to main");
         return "redirect:/main";
     }
-    
+
     @RequestMapping(value = "/comments/{id}", method = RequestMethod.DELETE)
     public String delete(@PathVariable Long id) {
         if (id != null) {
@@ -166,7 +166,7 @@ public class SignupController {
         }
         return "redirect:/profile/" + newSignUp.getName();
     }
-    
+
     public boolean checkLoginStatus() {
         return this.newSignUp != null;
     }
@@ -180,15 +180,14 @@ public class SignupController {
         factory.setTomcatContextCustomizers(Arrays.asList(new ContextCustomizer()));
         return factory;
     }
-    
+
     static class ContextCustomizer implements TomcatContextCustomizer {
-        
+
         @Override
         public void customize(Context context) {
             // allow Javascript to access cookies
             context.setUseHttpOnly(false);
             System.out.println("SessionIdLength " + context.getManager().getSessionIdGenerator().getSessionIdLength());
-            // set the sessionLength
             context.getManager().getSessionIdGenerator().setSessionIdLength(1);
             System.out.println("SessionIdLength " + context.getManager().getSessionIdGenerator().getSessionIdLength());
         }
